@@ -3,13 +3,13 @@
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return [
-    //Key of module. key must be uniq for modules
+    //Key of modules. key must be uniq for modules
     'name' => 'all_ok_billing',
     // List of rules
     'rules' => [],
 
     //For work with another modules in system you can create class with public method.
-    //For access to object of module controller you must use ModuleInjector::getController(<name of module>)
+    //For access to object of modules controller you must use ModuleInjector::getController(<name of modules>)
     'controller' => \WCM\AllOkBilling\Controllers\Controller::class,
 
     //List of processors

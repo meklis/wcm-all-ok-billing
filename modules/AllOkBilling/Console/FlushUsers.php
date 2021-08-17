@@ -13,7 +13,7 @@ use WCAA\Modules\AbstractModuleCommand;
 use WCAA\Storage\Devices\DeviceStorage;
 use WCM\AllOkBilling\Controllers\Controller;
 
-class SyncDevices extends AbstractModuleCommand
+class FlushUsers extends AbstractModuleCommand
 {
     /**
      * @Inject
@@ -30,9 +30,9 @@ class SyncDevices extends AbstractModuleCommand
 
     function config()
     {
-        //For all module console commands added prefix - module name
-        $this->setName('sync-devices')
-            ->setDescription("Sync devices with all-ok-billing");
+        //For all modules console commands added prefix - modules name
+        $this->setName('flush-users')
+            ->setDescription("Flush all synced users from all-ok-billing");
     }
 
     function exec(InputInterface $input, OutputInterface $output)
@@ -40,8 +40,8 @@ class SyncDevices extends AbstractModuleCommand
         $this->controller
             ->initDB()
             ->setConsoleOutput($output)
-            ->syncAccesses()
-            ->syncDevices();
+            ->flushUsers()
+            ->flushGroups();
         return self::SUCCESS;
     }
 

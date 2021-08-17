@@ -13,7 +13,7 @@ use WCAA\Modules\AbstractModuleCommand;
 use WCAA\Storage\Devices\DeviceStorage;
 use WCM\AllOkBilling\Controllers\Controller;
 
-class AuthUser extends AbstractModuleCommand
+class SyncUsers extends AbstractModuleCommand
 {
     /**
      * @Inject
@@ -30,21 +30,18 @@ class AuthUser extends AbstractModuleCommand
 
     function config()
     {
-        //For all module console commands added prefix - module name
-        $this->setName('user-auth')
-            ->addArgument('username', InputArgument::REQUIRED, 'Username on all-ok-billing')
-            ->addArgument('password', InputArgument::REQUIRED, "Password of username")
-            ->setDescription("Check working auth over all-ok-billing");
+        //For all modules console commands added prefix - modules name
+        $this->setName('sync-users')
+            ->setDescription("Sync users with all-ok-billing");
     }
 
     function exec(InputInterface $input, OutputInterface $output)
     {
-        $response = $this->controller
+        $this->controller
             ->initDB()
             ->setConsoleOutput($output)
-            ->billingAuth($input->getArgument('username'), $input->getArgument('password'));
-        $response['user'] = $response['user']->getAsArray();
-        $output->writeln($this->toJson($response));
+            ->syncGroups()
+            ->syncUsers();
         return self::SUCCESS;
     }
 
